@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>6. Sınıf Çalışma Alanı</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: #17233c;
+        background: #f5f7fb;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .page {
+        width: min(100% - 40px, 960px);
+        margin: 0 auto;
+        padding: 64px 0 48px;
+      }
+
+      .intro {
+        margin-bottom: 32px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: #5269c8;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 6vw, 3.25rem);
+        letter-spacing: -0.045em;
+      }
+
+      .description {
+        max-width: 560px;
+        margin: 12px 0 0;
+        color: #647089;
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .count {
+        color: #778198;
+        font-size: 0.9rem;
+      }
+
+      .category-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .category-button {
+        padding: 9px 14px;
+        border: 1px solid #dfe4ee;
+        border-radius: 999px;
+        background: #fff;
+        color: #526078;
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.9rem;
+        transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+      }
+
+      .category-button:hover {
+        border-color: #bfc9ee;
+      }
+
+      .category-button[aria-pressed="true"] {
+        border-color: #5269c8;
+        background: #5269c8;
+        color: #fff;
+      }
+
+      .category-button:focus-visible {
+        outline: 3px solid #7184de;
+        outline-offset: 3px;
+      }
+
+      .search {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 13px 15px;
+        border: 1px solid #dfe4ee;
+        border-radius: 12px;
+        outline: none;
+        background: #fff;
+        color: inherit;
+        font: inherit;
+      }
+
+      .search:focus {
+        border-color: #7184de;
+        box-shadow: 0 0 0 3px #7184de22;
+      }
+
+      .resource-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .resource {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 20px;
+        border: 1px solid #e6eaf2;
+        border-radius: 16px;
+        background: #fff;
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+      }
+
+      .resource[hidden] {
+        display: none;
+      }
+
+      .resource:hover {
+        transform: translateY(-2px);
+        border-color: #cbd4f5;
+        box-shadow: 0 10px 24px #26385f0d;
+      }
+
+      .resource:focus-visible {
+        outline: 3px solid #7184de;
+        outline-offset: 3px;
+      }
+
+      .subject {
+        display: inline-block;
+        margin-bottom: 8px;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: #eef0ff;
+        color: #5261b5;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .resource h3 {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.45;
+      }
+
+      .resource p {
+        margin: 6px 0 0;
+        color: #778198;
+        font-size: 0.9rem;
+      }
+
+      .arrow {
+        flex: 0 0 auto;
+        color: #5269c8;
+        font-size: 1.25rem;
+      }
+
+      .empty {
+        display: none;
+        padding: 28px;
+        border: 1px dashed #cfd6e4;
+        border-radius: 16px;
+        color: #647089;
+        text-align: center;
+      }
+
+      @media (max-width: 560px) {
+        .page {
+          width: min(100% - 28px, 960px);
+          padding-top: 40px;
+        }
+
+        .resource {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <p class="eyebrow">Ders kaynakları</p>
+        <h1>6. Sınıf Çalışma Alanı</h1>
+        <p class="description">Ders ve sınav çalışmalarında kullanacağın bağlantılar burada bir arada.</p>
+      </header>
+
+      <section aria-labelledby="resources-heading">
+        <div class="toolbar">
+          <h2 id="resources-heading">Kaynaklar</h2>
+          <span class="count" id="resource-count">13 kaynak</span>
+        </div>
+        <nav class="category-list" aria-label="Ders kategorileri">
+          <button class="category-button" type="button" data-category="all" aria-pressed="true">Tüm Dersler</button>
+          <button class="category-button" type="button" data-category="fen" aria-pressed="false">Fen Bilimleri</button>
+          <button class="category-button" type="button" data-category="matematik" aria-pressed="false">Matematik</button>
+          <button class="category-button" type="button" data-category="ingilizce" aria-pressed="false">İngilizce</button>
+          <button class="category-button" type="button" data-category="turkce" aria-pressed="false">Türkçe</button>
+          <button class="category-button" type="button" data-category="sosyal" aria-pressed="false">Sosyal Bilgiler</button>
+        </nav>
+        <label for="resource-search" class="eyebrow">Kaynaklarda ara</label>
+        <input
+          class="search"
+          id="resource-search"
+          type="search"
+          placeholder="Ders veya konu ara..."
+          autocomplete="off"
+        >
+        <div class="resource-list" id="resource-list">
+          <a
+            class="resource"
+            href="https://www.egitimhane.com/6-sinif-fen-bilimleri-1-donem-1-yazili-d385945.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="fen"
+            data-search="fen bilimleri 1. dönem 1. yazılı sınav"
+          >
+            <div>
+              <span class="subject">Fen Bilimleri</span>
+              <h3>1. Dönem 1. Yazılı</h3>
+              <p>6. sınıf yazılı çalışması · Egitimhane</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.matematik.biz/6-sinif-matematik/yazili-sorulari/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="matematik"
+            data-search="matematik yazılı soruları yazılı sınav"
+          >
+            <div>
+              <span class="subject">Matematik</span>
+              <h3>Yazılı Soruları</h3>
+              <p>6. sınıf yazılı soruları · Matematik.biz</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.ingilizcele.com/wp-content/uploads/6-sinif-ingilizce-1-donem-1-sinav-ornek-1.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="ingilizce"
+            data-search="ingilizce 1. dönem 1. sınav örnek pdf"
+          >
+            <div>
+              <span class="subject">İngilizce</span>
+              <h3>1. Dönem 1. Sınav Örneği</h3>
+              <p>6. sınıf İngilizce sınav PDF’si · İngilizcele</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.ingilizcele.com/wp-content/uploads/6-sinif-ingilizce-1-donem-1-sinav-ornek-2.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="ingilizce"
+            data-search="ingilizce 1. dönem 1. sınav örneği 2 pdf"
+          >
+            <div>
+              <span class="subject">İngilizce</span>
+              <h3>1. Dönem 1. Sınav Örneği 2</h3>
+              <p>6. sınıf İngilizce sınav PDF’si · İngilizcele</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://drive.google.com/file/d/1ocK3AlM7bLiG0iOeV8aHl-fmeJ2s0Lwn/view"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="turkce"
+            data-search="türkçe turkce çalışma dosyası google drive"
+          >
+            <div>
+              <span class="subject">Türkçe</span>
+              <h3>Türkçe Çalışma Dosyası</h3>
+              <p>6. sınıf Türkçe kaynağı · Google Drive</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.ingilizcele.com/wp-content/uploads/6-sinif-ingilizce-1-donem-1-sinav-ornek-4.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="ingilizce"
+            data-search="ingilizce 1. dönem 1. sınav örneği 4 pdf"
+          >
+            <div>
+              <span class="subject">İngilizce</span>
+              <h3>1. Dönem 1. Sınav Örneği 4</h3>
+              <p>6. sınıf İngilizce sınav PDF’si · İngilizcele</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.youtube.com/watch?v=lcOzV9LpZ9s"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="ingilizce"
+            data-search="ingilizce video youtube"
+          >
+            <div>
+              <span class="subject">İngilizce</span>
+              <h3>İngilizce Video Dersi</h3>
+              <p>6. sınıf İngilizce video kaynağı · YouTube</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.youtube.com/watch?v=HsSvd_C3UEM"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="turkce"
+            data-search="türkçe turkce video youtube"
+          >
+            <div>
+              <span class="subject">Türkçe</span>
+              <h3>Türkçe Video Dersi</h3>
+              <p>6. sınıf Türkçe video kaynağı · YouTube</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.youtube.com/watch?v=IPXNFj5acHQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="matematik"
+            data-search="matematik video youtube"
+          >
+            <div>
+              <span class="subject">Matematik</span>
+              <h3>Matematik Video Dersi</h3>
+              <p>6. sınıf matematik video kaynağı · YouTube</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://www.youtube.com/watch?v=skI7GhlwAC4"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="fen"
+            data-search="fen bilimleri video youtube"
+          >
+            <div>
+              <span class="subject">Fen Bilimleri</span>
+              <h3>Fen Bilimleri Video Dersi</h3>
+              <p>6. sınıf fen bilimleri video kaynağı · YouTube</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://drive.google.com/file/d/13hkFk8m9UcSJHp8u5XiGft2F66dQvdZ5/view"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="sosyal"
+            data-search="sosyal bilgiler çalışma dosyası google drive"
+          >
+            <div>
+              <span class="subject">Sosyal Bilgiler</span>
+              <h3>Sosyal Bilgiler Çalışma Dosyası</h3>
+              <p>6. sınıf Sosyal Bilgiler kaynağı · Google Drive</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://drive.google.com/file/d/1O1HKzIHjwP2vnPQI0a3W_7eGJFBg6ALH/view"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="sosyal"
+            data-search="sosyal bilgiler cevapları cevap anahtarı google drive"
+          >
+            <div>
+              <span class="subject">Sosyal Bilgiler</span>
+              <h3>Sosyal Bilgiler Cevapları</h3>
+              <p>6. sınıf Sosyal Bilgiler cevapları · Google Drive</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a
+            class="resource"
+            href="https://yeninesilturkce.com/wp-content/uploads/2025/12/6.Sinif-Turkce-Dersi-1.Donem-2.Yazili-1.Senaryo.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-subject="turkce"
+            data-search="türkçe turkce dersi 1. dönem 2. yazılı 1. senaryo sınav pdf"
+          >
+            <div>
+              <span class="subject">Türkçe</span>
+              <h3>1. Dönem 2. Türkçe Yazılısı · 1. Senaryo</h3>
+              <p>6. sınıf Türkçe yazılı sınavı · Yeni Nesil Türkçe</p>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <p class="empty" id="empty-message">Aramanla eşleşen kaynak bulunamadı.</p>
+      </section>
+    </main>
+    <script>
+      const searchInput = document.querySelector("#resource-search");
+      const resources = [...document.querySelectorAll(".resource")];
+      const categoryButtons = [...document.querySelectorAll(".category-button")];
+      const count = document.querySelector("#resource-count");
+      const emptyMessage = document.querySelector("#empty-message");
+      let selectedCategory = "all";
+
+      function updateResources() {
+        const searchTerms = searchInput.value.trim().toLocaleLowerCase("tr").split(/\s+/).filter(Boolean);
+        let visibleCount = 0;
+
+        for (const resource of resources) {
+          const searchableText = resource.dataset.search.toLocaleLowerCase("tr");
+          const matchesSearch = searchTerms.every((term) => searchableText.includes(term));
+          const matchesCategory = selectedCategory === "all" || resource.dataset.subject === selectedCategory;
+          const matches = matchesSearch && matchesCategory;
+          resource.hidden = !matches;
+          if (matches) visibleCount += 1;
+        }
+
+        count.textContent = `${visibleCount} kaynak`;
+        emptyMessage.style.display = visibleCount === 0 ? "block" : "none";
+      }
+
+      searchInput.addEventListener("input", updateResources);
+
+      for (const button of categoryButtons) {
+        button.addEventListener("click", () => {
+          selectedCategory = button.dataset.category;
+          for (const categoryButton of categoryButtons) {
+            categoryButton.setAttribute("aria-pressed", String(categoryButton === button));
+          }
+          updateResources();
+        });
+      }
+    </script>
+  </body>
+</html>
